@@ -2,29 +2,42 @@
 :root {
     --bg: #f5f7fa;
     --card-bg: #ffffff;
-    --text: #2c3e50;
-    --primary: #3498db;
-    --danger: #e74c3c;
-    --warning: #f39c12;
-    --success: #2ecc71;
-    --border: #e0e0e0;
-    --text-muted: #7f8c8d;
+    --text: #1e293b;
+    --primary: #059669;
+    --primary-hover: #047857;
+    --danger: #ff4060;
+    --warning: #ff8a3a;
+    --success: #059669;
+    --border: #e2e8f0;
+    --text-muted: #64748b;
+    --sidebar-bg: #f8fafc;
+    --sidebar-text: #334155;
+    --sidebar-active-bg: #ecfdf5;
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --transition: all 0.35s ease;
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #1a1a1a;
-        --card-bg: #2d2d2d;
-        --text: #ecf0f1;
-        --border: #444;
-        --text-muted: #95a5a6;
-    }
-}
+
+/* Тёмная тема */
 body.dark {
-    --bg: #1a1a1a;
-    --card-bg: #2d2d2d;
-    --text: #ecf0f1;
-    --border: #444;
-    --text-muted: #95a5a6;
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --text: #f1f5f9;
+    --primary: #00d4a8;
+    --primary-hover: #00c49a;
+    --danger: #ff4060;
+    --warning: #ff8a3a;
+    --success: #00d4a8;
+    --border: #334155;
+    --text-muted: #94a3b8;
+    --sidebar-bg: #1e293b;
+    --sidebar-text: #cbd5e1;
+    --sidebar-active-bg: #0d3b2c;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Плавный переход для фонов и цвета текста */
+body, .card, .dash-widget, .stat-card, .modal, .drawer-menu, .desktop-sidebar, .mobile-bottom-nav {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* ==================== Сброс и база ==================== */
@@ -34,25 +47,31 @@ body.dark {
     padding: 0;
 }
 body {
-    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
     background: var(--bg);
     color: var(--text);
     padding: 12px;
     line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+h1 {
+    font-size: 1.5rem;
+    margin: 0;
 }
 .app-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding-bottom: 80px; /* для мобильной нижней панели */
 }
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
-}
-h1 {
-    font-size: 1.5rem;
-    margin: 0;
 }
 
 /* ==================== Кнопки ==================== */
@@ -65,19 +84,33 @@ button {
     background: var(--primary);
     color: white;
     font-weight: 500;
-    transition: opacity 0.2s, transform 0.1s;
+    transition: var(--transition);
     touch-action: manipulation;
     margin: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+button:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 button:active {
-    opacity: 0.7;
-    transform: scale(0.97);
+    filter: brightness(0.95);
+    transform: scale(0.98);
 }
-.primary-btn { background: var(--primary); }
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+.primary-btn:hover {
+    background: var(--primary-hover);
+}
 .secondary-btn {
     background: transparent;
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.secondary-btn:hover {
+    background: var(--border);
 }
 .icon-btn {
     padding: 6px;
@@ -85,6 +118,10 @@ button:active {
     color: var(--text);
     font-size: 1.2rem;
     border: none;
+    box-shadow: none;
+}
+.icon-btn:hover {
+    background: var(--border);
 }
 
 /* ==================== Карточки и сетки ==================== */
@@ -93,7 +130,7 @@ button:active {
     border-radius: 16px;
     padding: 16px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow);
 }
 .stats-grid {
     display: grid;
@@ -113,6 +150,7 @@ button:active {
     padding: 12px;
     text-align: center;
     position: relative;
+    box-shadow: var(--shadow);
 }
 .ownership-card {
     position: relative;
@@ -167,7 +205,7 @@ button:active {
     background: var(--card-bg);
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
 }
@@ -195,6 +233,8 @@ button:active {
     font-size: 0.8rem;
     opacity: 0.7;
 }
+
+/* FAB-меню (пока старые кнопки, позже будет раскрывающееся) */
 .quick-actions {
     position: fixed;
     bottom: 80px;
@@ -213,6 +253,10 @@ button:active {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: var(--transition);
+}
+.quick-actions button:hover {
+    transform: scale(1.05);
 }
 @media (max-width: 767px) {
     .quick-actions {
@@ -234,6 +278,7 @@ button:active {
     background: var(--card-bg);
     margin-top: 12px;
     border: 1px solid var(--border);
+    box-shadow: var(--shadow);
 }
 table {
     width: 100%;
@@ -261,6 +306,12 @@ td:last-child {
     text-align: center;
     white-space: nowrap;
 }
+/* Полосатые строки без сильных разделителей */
+table tbody tr:hover {
+    background-color: rgba(0,0,0,0.04);
+}
+
+/* Ресайз-хендлы (для графиков) */
 th .resize-handle {
     position: absolute;
     right: 0;
@@ -318,12 +369,17 @@ th.resizing .resize-handle {
     max-width: 450px;
     max-height: 90vh;
     overflow-y: auto;
+    box-shadow: var(--shadow);
 }
 .close {
     float: right;
     font-size: 28px;
     cursor: pointer;
     line-height: 1;
+    color: var(--text-muted);
+}
+.close:hover {
+    color: var(--text);
 }
 .modal-actions {
     display: flex;
@@ -386,7 +442,7 @@ th.resizing .resize-handle {
     background: var(--card-bg);
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow);
     resize: both;
     overflow: auto;
     min-width: 150px;
@@ -414,6 +470,12 @@ input, select {
     color: var(--text);
     font-size: 1rem;
     margin-bottom: 12px;
+    transition: var(--transition);
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
 }
 #settings-result {
     margin-top: 12px;
@@ -482,7 +544,7 @@ input, select {
     margin-left: 8px;
 }
 .driving-mode-card.city .mode-value { color: #e67e22; }
-.driving-mode-card.highway .mode-value { color: #2ecc71; }
+.driving-mode-card.highway .mode-value { color: var(--success); }
 .driving-mode-card.mixed .mode-value { color: #3498db; }
 
 /* ==================== Сброс зума ==================== */
@@ -494,7 +556,7 @@ input, select {
     color: var(--primary);
     border-radius: 30px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition);
 }
 #reset-all-zoom:active {
     background: var(--primary);
@@ -656,6 +718,16 @@ input, select {
 }
 
 /* ==================== Тост-уведомления ==================== */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
 .toast {
     background: var(--card-bg);
     color: var(--text);
@@ -689,13 +761,14 @@ input, select {
     top: 0;
     bottom: 0;
     width: 260px;
-    background: var(--card-bg);
+    background: var(--sidebar-bg);
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     z-index: 100;
     transform: translateX(-100%);
-    transition: transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out, background-color 0.35s ease;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
 }
 @media (min-width: 768px) {
     .desktop-sidebar {
@@ -712,11 +785,13 @@ input, select {
     }
 }
 .sidebar-logo {
+    font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
     padding: 20px;
     border-bottom: 1px solid var(--border);
     text-align: center;
+    color: var(--primary);
 }
 .sidebar-nav {
     flex: 1;
@@ -733,23 +808,26 @@ input, select {
     background: none;
     border: none;
     border-radius: 12px;
-    color: var(--text);
+    color: var(--sidebar-text);
     font-size: 1rem;
     text-align: left;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: var(--transition);
     width: 100%;
+    margin: 0;
 }
 .sidebar-item i {
     width: 1.2rem;
     height: 1.2rem;
+    font-size: 1.2rem;
 }
 .sidebar-item:hover {
-    background: var(--bg);
+    background: var(--sidebar-active-bg);
 }
 .sidebar-item.active {
     background: var(--primary);
     color: white;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
 }
 .sidebar-footer {
     display: flex;
@@ -761,14 +839,15 @@ input, select {
 .sidebar-footer button {
     background: none;
     border: none;
-    color: var(--text);
+    color: var(--sidebar-text);
     padding: 8px;
     border-radius: 8px;
     cursor: pointer;
     flex: 1;
+    transition: var(--transition);
 }
 .sidebar-footer button:hover {
-    background: var(--bg);
+    background: var(--sidebar-active-bg);
 }
 
 /* ==================== Мобильная навигация ==================== */
@@ -782,7 +861,9 @@ input, select {
     display: none;
     justify-content: space-around;
     padding: 8px 0;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
     z-index: 100;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
 }
 @media (max-width: 767px) {
     .mobile-bottom-nav {
@@ -805,6 +886,7 @@ input, select {
     color: var(--text-muted);
     font-size: 0.7rem;
     padding: 4px 0;
+    transition: var(--transition);
 }
 .bottom-nav-item.active {
     color: var(--primary);
@@ -812,6 +894,7 @@ input, select {
 .bottom-nav-item i {
     width: 24px;
     height: 24px;
+    font-size: 1.2rem;
     margin-bottom: 2px;
 }
 .drawer-menu {
@@ -862,6 +945,7 @@ input, select {
     color: var(--text);
     font-size: 1rem;
     text-align: left;
+    transition: var(--transition);
 }
 .drawer-item:last-child {
     border-bottom: none;
@@ -878,20 +962,12 @@ input, select {
 .auth-method { display: none; }
 .auth-method.active { display: block; }
 
-/* Добавить в конец файла */
-
+/* ==================== Прочие вспомогательные стили ==================== */
 .recording {
     animation: pulse 1s infinite;
     background-color: #e74c3c !important;
 }
 
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.6; }
-    100% { opacity: 1; }
-}
-
-/* Компактный сайдбар для селектора автомобиля */
 #sidebar-car-selector select {
     width: 100%;
     font-size: 1rem;
@@ -900,19 +976,4 @@ input, select {
     background: var(--bg);
     border: 1px solid var(--border);
     color: var(--text);
-}
-
-.sidebar-item i {
-    width: 1rem;      /* слегка уменьшим иконки для плотности */
-    height: 1rem;
-}
-/* ==================== Toast-контейнер ==================== */
-#toast-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
