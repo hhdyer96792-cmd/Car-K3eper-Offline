@@ -6,7 +6,12 @@
     <title>🚗 Car K3eeper D&T</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2c3e50">
+    <meta name="theme-color" content="#059669">
+
+    <!-- Google Fonts: Roboto для заголовков, Atkinson Hyperlegible для основного текста -->
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (для замены части статических иконок) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Внешние библиотеки -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -22,16 +27,17 @@
 <body>
 
 <div class="desktop-sidebar">
+    <div class="sidebar-logo">🚗 Car K3eeper</div>
     <div id="sidebar-car-selector" style="padding: 12px 20px; border-bottom: 1px solid var(--border);"></div>
     <nav class="sidebar-nav">
-        <button class="sidebar-item active" data-tab="dashboard"><i data-lucide="layout-dashboard"></i> Дашборд</button>
-        <button class="sidebar-item" data-tab="to"><i data-lucide="wrench"></i> ТО</button>
-        <button class="sidebar-item" data-tab="stats"><i data-lucide="bar-chart-3"></i> Статистика</button>
-        <button class="sidebar-item" data-tab="history"><i data-lucide="scroll"></i> История</button>
-        <button class="sidebar-item" data-tab="fuel"><i data-lucide="fuel"></i> Топливо</button>
-        <button class="sidebar-item" data-tab="tires"><i data-lucide="circle"></i> Шины</button>
-        <button class="sidebar-item" data-tab="parts"><i data-lucide="package"></i> Запчасти</button>
-        <button class="sidebar-item" data-tab="settings"><i data-lucide="settings"></i> Настройки</button>
+        <!-- Статические иконки заменены на Font Awesome, динамические (JS) остаются Lucide -->
+        <button class="sidebar-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Дашборд</button>
+        <button class="sidebar-item" data-tab="to"><i class="fas fa-wrench"></i> ТО</button>
+        <button class="sidebar-item" data-tab="stats"><i class="fas fa-chart-bar"></i> Статистика</button>
+        <button class="sidebar-item" data-tab="fuel"><i class="fas fa-gas-pump"></i> Топливо</button>
+        <button class="sidebar-item" data-tab="tires"><i class="fas fa-circle"></i> Шины</button>
+        <button class="sidebar-item" data-tab="parts"><i class="fas fa-box"></i> Запчасти</button>
+        <button class="sidebar-item" data-tab="settings"><i class="fas fa-cog"></i> Настройки</button>
     </nav>
     <div class="sidebar-footer">
         <button id="sidebar-theme" title="Тема"><i data-lucide="moon"></i></button>
@@ -88,12 +94,12 @@
         <!-- Соцсети -->
         <div id="auth-social" class="auth-method" style="display:none;">
             <button id="supabase-auth-btn" class="primary-btn" style="width:100%; margin-bottom:8px;">
-                <i data-lucide="earth"></i> Войти через Google
+                <i class="fas fa-sign-in-alt"></i> Войти через Google
             </button>
             <!-- Apple (раскомментируйте после настройки провайдера) -->
             <!--
             <button id="apple-auth-btn" class="primary-btn" style="width:100%; margin-bottom:8px;">
-                <i data-lucide="apple"></i> Войти через Apple
+                <i class="fas fa-apple"></i> Войти через Apple
             </button>
             -->
         </div>
@@ -105,7 +111,7 @@
         <div id="tab-dashboard" class="tab-content active">
             <div class="dashboard-grid">
                 <div class="dash-widget" id="widget-summary">
-                    <h3><i data-lucide="gauge"></i> Сводка</h3>
+                    <h3><i class="fas fa-tachometer-alt"></i> Сводка</h3>
                     <div class="summary-values">
                         <div><span id="dash-mileage">0</span><small> км</small></div>
                         <div><span id="dash-motohours">0</span><small> ч</small></div>
@@ -114,41 +120,42 @@
                     </div>
                 </div>
                 <div class="dash-widget" id="widget-driving-mode">
-                    <h3><i data-lucide="car"></i> Режим</h3>
+                    <h3><i class="fas fa-car"></i> Режим</h3>
                     <div id="dash-driving-mode">—</div>
                     <p class="hint" id="dash-driving-hint"></p>
                 </div>
                 <div class="dash-widget dash-widget-wide" id="widget-upcoming">
-                    <h3><i data-lucide="alert-circle"></i> Ближайшие ТО</h3>
+                    <h3><i class="fas fa-exclamation-circle"></i> Ближайшие ТО</h3>
                     <div id="dash-upcoming-container"></div>
                 </div>
                 <div class="dash-widget" id="widget-prediction">
-                    <h3><i data-lucide="trending-up"></i> Прогноз</h3>
+                    <h3><i class="fas fa-chart-line"></i> Прогноз</h3>
                     <label>Целевой пробег <input type="number" id="dash-target-mileage" placeholder="100000" style="width:100%"></label>
                     <button class="secondary-btn" id="dash-predict-btn">Рассчитать</button>
                     <div id="dash-prediction-result" class="hint"></div>
                 </div>
                 <div class="dash-widget" id="widget-fuel-chart">
-                    <h3><i data-lucide="line-chart"></i> Расход топлива</h3>
+                    <h3><i class="fas fa-chart-line"></i> Расход топлива</h3>
                     <canvas id="dash-fuel-consumption-chart" height="120"></canvas>
                 </div>
                 <div class="dash-widget" id="widget-cost-chart">
-                    <h3><i data-lucide="bar-chart-3"></i> Затраты</h3>
+                    <h3><i class="fas fa-chart-bar"></i> Затраты</h3>
                     <canvas id="dash-costs-chart" height="120"></canvas>
                 </div>
                 <div class="dash-widget" id="widget-pie-chart">
-                    <h3><i data-lucide="pie-chart"></i> Расходы</h3>
+                    <h3><i class="fas fa-chart-pie"></i> Расходы</h3>
                     <canvas id="dash-expense-pie-chart" height="120"></canvas>
                 </div>
                 <div class="dash-widget" id="widget-tire-wear">
-                    <h3><i data-lucide="circle"></i> Шины</h3>
+                    <h3><i class="fas fa-circle"></i> Шины</h3>
                     <div id="dash-tire-wear-container"></div>
                 </div>
             </div>
+            <!-- FAB-меню вместо трёх отдельных кнопок (превратится в раскрывающееся меню позже) -->
             <div class="quick-actions">
                 <button id="dash-update-mileage-btn" class="primary-btn" title="Обновить пробег"><i data-lucide="refresh-cw"></i></button>
-                <button id="dash-add-fuel-btn" class="primary-btn" title="Заправка"><i data-lucide="fuel"></i></button>
-                <button id="dash-add-service-btn" class="primary-btn" title="ТО"><i data-lucide="wrench"></i></button>
+                <button id="dash-add-fuel-btn" class="primary-btn" title="Заправка"><i class="fas fa-gas-pump"></i></button>
+                <button id="dash-add-service-btn" class="primary-btn" title="ТО"><i class="fas fa-wrench"></i></button>
             </div>
         </div>
 
@@ -165,9 +172,9 @@
                 <label style="margin:0;">Моточасы: <input type="number" id="new-motohours" placeholder="ч" style="width:120px;"></label>
                 <button id="update-mileage-btn" class="primary-btn"><i data-lucide="refresh-cw"></i> Обновить</button>
             </div>
-            <div class="card top5-widget"><h3><i data-lucide="arrow-up"></i> Ближайшие работы</h3><div id="top5-container"></div></div>
+            <div class="card top5-widget"><h3><i class="fas fa-arrow-up"></i> Ближайшие работы</h3><div id="top5-container"></div></div>
             <div class="card planner-card">
-                <h3><i data-lucide="calendar-range"></i> Планировщик ТО</h3>
+                <h3><i class="fas fa-calendar-alt"></i> Планировщик ТО</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 16px;">
                     <label style="flex:1; min-width:150px;">Период:
                         <select id="plan-period-select" style="width:100%">
@@ -177,18 +184,18 @@
                             <option value="year">Год</option>
                         </select>
                     </label>
-                    <button id="generate-plan-btn" class="primary-btn"><i data-lucide="calendar"></i> Сформировать план</button>
-                    <button id="plan-to-calendar-btn" class="secondary-btn" style="display:none;"><i data-lucide="calendar-plus"></i> Добавить все в календарь</button>
+                    <button id="generate-plan-btn" class="primary-btn"><i class="fas fa-calendar"></i> Сформировать план</button>
+                    <button id="plan-to-calendar-btn" class="secondary-btn" style="display:none;"><i class="fas fa-calendar-plus"></i> Добавить все в календарь</button>
                 </div>
                 <div id="plan-container" style="max-height: 400px; overflow-y: auto;">
                     <p class="hint">Выберите период и нажмите «Сформировать план».</p>
                 </div>
             </div>
             <div class="action-bar">
-                <button id="add-operation-btn" class="primary-btn"><i data-lucide="plus"></i> Операция</button>
-                <button id="recalculate-btn" class="secondary-btn"><i data-lucide="refresh-ccw"></i> Пересчитать</button>
-                <button id="export-btn" class="secondary-btn"><i data-lucide="download"></i> Экспорт</button>
-                <button id="import-btn" class="secondary-btn"><i data-lucide="upload"></i> Импорт</button>
+                <button id="add-operation-btn" class="primary-btn"><i class="fas fa-plus"></i> Операция</button>
+                <button id="recalculate-btn" class="secondary-btn"><i class="fas fa-sync-alt"></i> Пересчитать</button>
+                <button id="export-btn" class="secondary-btn"><i class="fas fa-download"></i> Экспорт</button>
+                <button id="import-btn" class="secondary-btn"><i class="fas fa-upload"></i> Импорт</button>
                 <input type="file" id="import-file" accept=".json" style="display:none;">
             </div>
             <div class="table-wrapper" id="table-skeleton">
@@ -213,38 +220,38 @@
                     </select>
                 </label>
                 <div id="driving-mode-indicator" class="driving-mode-card">
-                    <span class="mode-label"><i data-lucide="gauge"></i> Режим:</span>
+                    <span class="mode-label"><i class="fas fa-tachometer-alt"></i> Режим:</span>
                     <span class="mode-value" id="driving-mode">—</span>
                     <span class="mode-hint" id="driving-mode-hint"></span>
                 </div>
-                <button id="reset-all-zoom" class="secondary-btn" style="margin-left: auto;"><i data-lucide="refresh-ccw"></i> Сбросить масштаб</button>
+                <button id="reset-all-zoom" class="secondary-btn" style="margin-left: auto;"><i class="fas fa-sync-alt"></i> Сбросить масштаб</button>
             </div>
             <div class="stats-summary-grid" id="stats-summary-skeleton">
-                <div class="stat-card"><span class="stat-label"><i data-lucide="dollar-sign"></i> Всего на ТО</span><span class="stat-value" id="total-maintenance-cost">0</span><span class="stat-unit">₽</span></div>
-                <div class="stat-card"><span class="stat-label"><i data-lucide="fuel"></i> Всего на топливо</span><span class="stat-value" id="total-fuel-cost">0</span><span class="stat-unit">₽</span></div>
-                <div class="stat-card"><span class="stat-label"><i data-lucide="ruler"></i> Стоимость 1 км</span><span class="stat-value" id="cost-per-km">0</span><span class="stat-unit">₽/км</span></div>
-                <div class="stat-card"><span class="stat-label"><i data-lucide="bar-chart-2"></i> Средний расход</span><span class="stat-value" id="avg-fuel-consumption">0</span><span class="stat-unit">л/100 км</span></div>
-                <div class="stat-card"><span class="stat-label"><i data-lucide="car"></i> Ср. пробег/день</span><span class="stat-value" id="avg-mileage-per-day">0</span><span class="stat-unit">км</span></div>
-                <div class="stat-card"><span class="stat-label"><i data-lucide="clock"></i> Ср. моточасы/день</span><span class="stat-value" id="avg-motohours-per-day">0</span><span class="stat-unit">ч</span></div>
-                <div class="stat-card ownership-card"><span class="stat-label"><i data-lucide="calendar"></i> Владение</span><span class="stat-value" id="ownership-display">0</span><span class="stat-unit" id="ownership-unit">дней</span><button id="toggle-ownership-unit" class="icon-btn" title="Переключить дни/годы"><i data-lucide="refresh-ccw"></i></button></div>
+                <div class="stat-card"><span class="stat-label"><i class="fas fa-wrench"></i> Всего на ТО</span><span class="stat-value" id="total-maintenance-cost">0</span><span class="stat-unit">₽</span></div>
+                <div class="stat-card"><span class="stat-label"><i class="fas fa-gas-pump"></i> Всего на топливо</span><span class="stat-value" id="total-fuel-cost">0</span><span class="stat-unit">₽</span></div>
+                <div class="stat-card"><span class="stat-label"><i class="fas fa-ruler-combined"></i> Стоимость 1 км</span><span class="stat-value" id="cost-per-km">0</span><span class="stat-unit">₽/км</span></div>
+                <div class="stat-card"><span class="stat-label"><i class="fas fa-chart-bar"></i> Средний расход</span><span class="stat-value" id="avg-fuel-consumption">0</span><span class="stat-unit">л/100 км</span></div>
+                <div class="stat-card"><span class="stat-label"><i class="fas fa-car"></i> Ср. пробег/день</span><span class="stat-value" id="avg-mileage-per-day">0</span><span class="stat-unit">км</span></div>
+                <div class="stat-card"><span class="stat-label"><i class="fas fa-clock"></i> Ср. моточасы/день</span><span class="stat-value" id="avg-motohours-per-day">0</span><span class="stat-unit">ч</span></div>
+                <div class="stat-card ownership-card"><span class="stat-label"><i class="fas fa-calendar-alt"></i> Владение</span><span class="stat-value" id="ownership-display">0</span><span class="stat-unit" id="ownership-unit">дней</span><button id="toggle-ownership-unit" class="icon-btn" title="Переключить дни/годы"><i data-lucide="refresh-ccw"></i></button></div>
             </div>
             <div class="stats-container">
-                <div class="chart-card"><h3><i data-lucide="line-chart"></i> Расход топлива (л/100 км) по месяцам</h3><canvas id="fuelConsumptionChart"></canvas></div>
-                <div class="chart-card"><h3><i data-lucide="dollar-sign"></i> Средняя цена топлива (₽/л) по месяцам</h3><canvas id="fuelPriceChart"></canvas></div>
-                <div class="chart-card"><h3><i data-lucide="bar-chart-3"></i> Затраты на топливо и ТО по месяцам</h3><canvas id="costsChart"></canvas></div>
+                <div class="chart-card"><h3><i class="fas fa-chart-line"></i> Расход топлива (л/100 км) по месяцам</h3><canvas id="fuelConsumptionChart"></canvas></div>
+                <div class="chart-card"><h3><i class="fas fa-money-bill-wave"></i> Средняя цена топлива (₽/л) по месяцам</h3><canvas id="fuelPriceChart"></canvas></div>
+                <div class="chart-card"><h3><i class="fas fa-chart-bar"></i> Затраты на топливо и ТО по месяцам</h3><canvas id="costsChart"></canvas></div>
                 <div class="card">
-                    <h3><i data-lucide="trending-up"></i> Прогноз пробега</h3>
+                    <h3><i class="fas fa-chart-line"></i> Прогноз пробега</h3>
                     <div style="display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap;">
                         <label style="flex:1; min-width:150px;">Целевой пробег (км):
                             <input type="number" id="prediction-target" placeholder="например, 100000" style="width:100%">
                         </label>
-                        <button id="calc-prediction-btn" class="secondary-btn"><i data-lucide="calculator"></i> Рассчитать</button>
+                        <button id="calc-prediction-btn" class="secondary-btn"><i class="fas fa-calculator"></i> Рассчитать</button>
                     </div>
                     <div id="prediction-result" class="hint" style="margin-top:12px;"></div>
                 </div>
                 <div class="pie-row">
-                    <div class="chart-card"><h3><i data-lucide="pie-chart"></i> Распределение затрат по категориям</h3><canvas id="expensePieChart"></canvas></div>
-                    <div class="chart-card"><h3><i data-lucide="droplet"></i> Прогноз замены масла</h3><canvas id="oilChart"></canvas></div>
+                    <div class="chart-card"><h3><i class="fas fa-chart-pie"></i> Распределение затрат по категориям</h3><canvas id="expensePieChart"></canvas></div>
+                    <div class="chart-card"><h3><i class="fas fa-oil-can"></i> Прогноз замены масла</h3><canvas id="oilChart"></canvas></div>
                 </div>
             </div>
         </div>
@@ -252,7 +259,7 @@
         <!-- История -->
         <div id="tab-history" class="tab-content">
             <div class="card" style="margin-bottom: 16px;">
-                <h3><i data-lucide="filter"></i> Фильтры истории</h3>
+                <h3><i class="fas fa-filter"></i> Фильтры истории</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
                     <label style="flex: 1; min-width: 150px;">Период:
                         <select id="history-period-select" style="width: 100%;">
@@ -281,7 +288,7 @@
                     <label style="flex: 1; min-width: 120px;">Стоимость до (₽):
                         <input type="number" id="history-cost-max" placeholder="100000" style="width: 100%;">
                     </label>
-                    <button id="history-reset-filters" class="secondary-btn"><i data-lucide="refresh-ccw"></i> Сбросить</button>
+                    <button id="history-reset-filters" class="secondary-btn"><i class="fas fa-sync-alt"></i> Сбросить</button>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -295,8 +302,8 @@
         <!-- Топливо -->
         <div id="tab-fuel" class="tab-content">
             <div class="action-bar">
-                <button id="add-fuel-btn" class="primary-btn"><i data-lucide="plus"></i> Добавить заправку</button>
-                <button id="voice-fuel-btn" class="secondary-btn" title="Голосовой ввод"><i data-lucide="mic"></i></button>
+                <button id="add-fuel-btn" class="primary-btn"><i class="fas fa-plus"></i> Добавить заправку</button>
+                <button id="voice-fuel-btn" class="secondary-btn" title="Голосовой ввод"><i class="fas fa-microphone"></i></button>
             </div>
             <div class="table-wrapper">
                 <table id="fuel-table">
@@ -310,7 +317,7 @@
         <div id="tab-tires" class="tab-content">
             <div id="tire-recommendation" class="info-card"></div>
             <div class="card calculator-card">
-                <h3><i data-lucide="calculator"></i> Калькулятор изменения показаний спидометра</h3>
+                <h3><i class="fas fa-calculator"></i> Калькулятор изменения показаний спидометра</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end;">
                     <label style="flex:1; min-width:120px;">Старый размер:<br>
                         <input type="text" id="old-tire-size" placeholder="205/55R16" style="width:100%">
@@ -318,15 +325,15 @@
                     <label style="flex:1; min-width:120px;">Новый размер:<br>
                         <input type="text" id="new-tire-size" placeholder="215/50R17" style="width:100%">
                     </label>
-                    <button id="calc-tire-btn" class="primary-btn" style="margin-bottom:12px;"><i data-lucide="rotate-cw"></i> Рассчитать</button>
+                    <button id="calc-tire-btn" class="primary-btn" style="margin-bottom:12px;"><i class="fas fa-sync-alt"></i> Рассчитать</button>
                 </div>
                 <div id="tire-calc-result" class="hint" style="margin-top:12px;"></div>
             </div>
             <div class="card wear-card">
-                <h3><i data-lucide="activity"></i> Износ шин</h3>
+                <h3><i class="fas fa-circle"></i> Износ шин</h3>
                 <div id="tire-wear-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;"></div>
             </div>
-            <div class="action-bar"><button id="add-tire-btn" class="primary-btn"><i data-lucide="plus"></i> Сменить резину</button></div>
+            <div class="action-bar"><button id="add-tire-btn" class="primary-btn"><i class="fas fa-plus"></i> Сменить резину</button></div>
             <div class="table-wrapper">
                 <table id="tires-table">
                     <thead><tr><th>Дата</th><th>Тип</th><th>Пробег</th><th>Модель</th><th>Размер</th><th>Износ</th><th>Прим.</th><th></th></tr></thead>
@@ -337,7 +344,7 @@
 
         <!-- Запчасти -->
         <div id="tab-parts" class="tab-content">
-            <div class="action-bar"><button id="add-part-btn" class="primary-btn"><i data-lucide="plus"></i> Добавить запчасть</button></div>
+            <div class="action-bar"><button id="add-part-btn" class="primary-btn"><i class="fas fa-plus"></i> Добавить запчасть</button></div>
             <div class="table-wrapper">
                 <table id="parts-table">
                     <thead>
@@ -350,20 +357,20 @@
 
         <!-- Настройки -->
         <div id="tab-settings" class="tab-content">
-            <div class="card"><h3><i data-lucide="wrench"></i> Показатели точки отсчёта</h3>
+            <div class="card"><h3><i class="fas fa-wrench"></i> Показатели точки отсчёта</h3>
                 <label>Пробег точки отсчёта (км): <input type="number" id="set-base-mileage" step="1" value="0"></label>
                 <label>Моточасы точки отсчёта: <input type="number" id="set-base-motohours" step="1" value="0"></label>
                 <p class="hint">Используются, если история пробега ещё не накоплена.</p>
             </div>
-            <div class="card"><h3><i data-lucide="calendar"></i> Владение автомобилем</h3>
+            <div class="card"><h3><i class="fas fa-calendar-alt"></i> Владение автомобилем</h3>
                 <label>Дата приобретения: <input type="date" id="purchase-date"></label>
                 <label>Дней владения: <input type="text" id="ownership-days" readonly></label>
             </div>
             <div class="card" id="sharing-card">
-                <h3><i data-lucide="users"></i> Совместный доступ</h3>
+                <h3><i class="fas fa-users"></i> Совместный доступ</h3>
                 <div id="sharing-container"><p class="hint">Загрузка...</p></div>
             </div>
-            <div class="card"><h3><i data-lucide="bell"></i> Уведомления</h3>
+            <div class="card"><h3><i class="fas fa-bell"></i> Уведомления</h3>
                 <label>Способ уведомлений:
                     <select id="notification-method">
                         <option value="telegram">Только Telegram</option>
@@ -384,14 +391,14 @@
                 <small class="hint">Уведомления будут приходить за указанное количество дней до плановой даты.</small>
                 <div id="push-settings">
                     <p id="push-status">Push-уведомления не настроены.</p>
-                    <button id="subscribe-push-btn" class="secondary-btn"><i data-lucide="bell"></i> Подписаться на уведомления</button>
-                    <button id="unsubscribe-push-btn" class="secondary-btn" style="display:none;"><i data-lucide="bell-off"></i> Отписаться от уведомлений</button>
+                    <button id="subscribe-push-btn" class="secondary-btn"><i class="fas fa-bell"></i> Подписаться на уведомления</button>
+                    <button id="unsubscribe-push-btn" class="secondary-btn" style="display:none;"><i class="fas fa-bell-slash"></i> Отписаться от уведомлений</button>
                 </div>
-                <button id="save-settings-btn" class="primary-btn"><i data-lucide="save"></i> Сохранить настройки</button>
+                <button id="save-settings-btn" class="primary-btn"><i class="fas fa-save"></i> Сохранить настройки</button>
                 <div id="settings-result"></div>
             </div>
             <div class="card">
-                <h3><i data-lucide="download"></i> Экспорт данных</h3>
+                <h3><i class="fas fa-download"></i> Экспорт данных</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
                     <label style="flex: 1; min-width: 180px;">Тип данных:
                         <select id="export-type-select" style="width: 100%;">
@@ -409,18 +416,18 @@
                             <option value="xlsx">Excel (XLSX)</option>
                         </select>
                     </label>
-                    <button id="export-data-btn" class="primary-btn"><i data-lucide="download"></i> Экспорт данных</button>
+                    <button id="export-data-btn" class="primary-btn"><i class="fas fa-download"></i> Экспорт данных</button>
                 </div>
                 <p class="hint">CSV – подходит для просмотра в таблицах, Excel – полная резервная копия (много листов).</p>
 
                 <!-- Импорт -->
                 <hr style="margin: 12px 0;">
-                <h3><i data-lucide="upload"></i> Импорт данных</h3>
+                <h3><i class="fas fa-upload"></i> Импорт данных</h3>
                 <div id="csv-import-container"><p class="hint">Загрузка...</p></div>
             </div>
             
             <div class="card">
-                <h3><i data-lucide="key"></i> Резервные коды</h3>
+                <h3><i class="fas fa-key"></i> Резервные коды</h3>
                 <div id="recovery-codes-container">
                     <button id="show-recovery-btn" class="secondary-btn">Показать неиспользованные коды</button>
                     <button id="gen-new-codes-btn" class="secondary-btn" style="margin-left:8px;">Сгенерировать новые</button>
@@ -432,23 +439,23 @@
 </div>
 
 <div class="mobile-bottom-nav">
-    <button class="bottom-nav-item active" data-tab="dashboard"><i data-lucide="layout-dashboard"></i><span>Дашборд</span></button>
-    <button class="bottom-nav-item" data-tab="to"><i data-lucide="wrench"></i><span>ТО</span></button>
-    <button class="bottom-nav-item" data-tab="stats"><i data-lucide="bar-chart-3"></i><span>Статистика</span></button>
-    <button class="bottom-nav-item" data-tab="fuel"><i data-lucide="fuel"></i><span>Топливо</span></button>
-    <button class="bottom-nav-item" id="more-menu-btn"><i data-lucide="more-horizontal"></i><span>Ещё</span></button>
+    <button class="bottom-nav-item active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i><span>Дашборд</span></button>
+    <button class="bottom-nav-item" data-tab="to"><i class="fas fa-wrench"></i><span>ТО</span></button>
+    <button class="bottom-nav-item" data-tab="stats"><i class="fas fa-chart-bar"></i><span>Статистика</span></button>
+    <button class="bottom-nav-item" data-tab="fuel"><i class="fas fa-gas-pump"></i><span>Топливо</span></button>
+    <button class="bottom-nav-item" id="more-menu-btn"><i class="fas fa-ellipsis-h"></i><span>Ещё</span></button>
 </div>
 
 <div id="drawer-menu" class="drawer-menu hidden">
     <div class="drawer-overlay"></div>
     <div class="drawer-content">
         <div class="drawer-header">Дополнительно</div>
-        <button class="drawer-item" data-tab="tires"><i data-lucide="circle"></i> Шины</button>
-        <button class="drawer-item" data-tab="history"><i data-lucide="scroll"></i> История</button>
-        <button class="drawer-item" data-tab="parts"><i data-lucide="package"></i> Запчасти</button>
-        <button class="drawer-item" data-tab="settings"><i data-lucide="settings"></i> Настройки</button>
+        <button class="drawer-item" data-tab="tires"><i class="fas fa-circle"></i> Шины</button>
+        <button class="drawer-item" data-tab="history"><i class="fas fa-history"></i> История</button>
+        <button class="drawer-item" data-tab="parts"><i class="fas fa-box"></i> Запчасти</button>
+        <button class="drawer-item" data-tab="settings"><i class="fas fa-cog"></i> Настройки</button>
         <hr class="drawer-divider">
-        <button class="drawer-item" id="drawer-logout"><i data-lucide="log-out"></i> Выйти</button>
+        <button class="drawer-item" id="drawer-logout"><i class="fas fa-sign-out-alt"></i> Выйти</button>
         <button class="drawer-item" id="drawer-theme-toggle"><i data-lucide="moon"></i> Тема</button>
     </div>
 </div>
